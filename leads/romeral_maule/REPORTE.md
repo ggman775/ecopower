@@ -16,6 +16,14 @@ Fecha del escaneo: 2026-09-23
    - Mini-sitios gratuitos tipo Google Business Site sin diseño propio.
 3. **Detección de "sitio antiguo"**: se buscó evidencia indirecta (antigüedad del negocio,
    tipo de sitio, menciones) para priorizar candidatos a revisión manual.
+4. **Búsqueda de teléfono/email** (actualización 2026-09-23): se evaluó usar Apollo.io, pero
+   se descartó — Apollo enriquece contactos corporativos vía LinkedIn (cargos, emails de
+   empresas con dominio propio) y no tiene cobertura de comercio local chico sin presencia
+   corporativo/LinkedIn, que es la mayoría de esta lista. No hay conector de Apollo ni de
+   Google Maps/Places disponible en este entorno. En su lugar se hicieron búsquedas dirigidas
+   por negocio (nombre + "teléfono"/"contacto"/"whatsapp") para extraer el dato directamente
+   de snippets de Facebook, Instagram y directorios locales (Páginas Amarillas, Citiservi,
+   ude.cl), que es donde efectivamente circulan los teléfonos de este tipo de negocio.
 
 ## Limitación importante de este entorno
 
@@ -35,30 +43,47 @@ no un catastro exhaustivo. Para una segunda pasada mucho más completa y con ver
 directa de cada sitio, conviene ampliar el "Network access" del entorno (se puede cambiar en
 la configuración de la sesión) y correr el script incluido en `tools/lead_scanner/`.
 
-## Resultados: 17 negocios identificados
+## Resultados: 16 negocios identificados (+1 hallazgo adicional)
 
-Ver [`leads_2026-09-23.csv`](./leads_2026-09-23.csv) para el detalle completo. Resumen:
+Ver [`leads_2026-09-23.csv`](./leads_2026-09-23.csv) para el detalle completo, con columnas de
+teléfono, email y si el contacto está verificado (`contacto_verificado`).
 
-- **13 negocios sin sitio web propio** (solo Facebook/Instagram o directorios de terceros):
-  Minimarket Las Brisas, Restaurante El Romeral, Ferretería FyD, Ferretería y Construcción ELOI,
-  Panadería Romeral, Punto Romeral Supermarket, Confecciones Romeral, Productos Santa Bertina,
-  Jardín Infantil Ñuke Mapu, Jardín Infantil Paso a Pasito, Agrofrío Central, Jardines de Quilvo,
-  Frío Frío.
-- **1 negocio con mini-sitio gratuito muy básico**: Mermeladas María Altamira (Google Business Site).
-- **2 negocios con dominio propio a revisar** (posible sitio antiguo, requiere inspección manual
-  o red ampliada): Silos de Romeral (silosderomeral.cl), Provemat (provemat.cl).
+**Corrección respecto al primer barrido**: "Jardines de Quilvo" se sacó de la lista — al
+buscar su teléfono se descubrió que es una villa/barrio de Romeral, no un negocio de
+jardinería. Se agregó en su lugar un hallazgo nuevo: **Restaurant Colo Colo Romeral**, con
+teléfono y WhatsApp confirmados.
+
+- **8 negocios con teléfono/email confirmado** vía búsqueda dirigida:
+  1. Minimarket Las Brisas de Romeral — +56 9 8645 8615 / franciscocontruccion68@gmail.com
+  2. Ferretería FyD Romeral — +56 9 7331 4133 / ferreteriafydchile@gmail.com
+  3. Mermeladas María Altamira — +56 9 9884 7914
+  4. Jardín Infantil Paso a Pasito — (75) 544296
+  5. Restaurant Colo Colo Romeral — (75) 243 1036 / WhatsApp +56 9 9305 6700
+  6. Agrofrío Central (grupo Alsu) — +56 9 7588 7846 / contacto@alsu.cl
+  7. Silos de Romeral — (75) 238 1660 / +56 9 9887 4019 / silosromeral@tie.cl
+  8. Provemat — +56 9 8992 6812 / info@provemat.cl
+- **8 negocios sin teléfono confirmado por búsqueda** (hay que sacarlo de su Facebook
+  directamente, o visitarlos/llamarlos en terreno): Restaurante El Romeral, Ferretería y
+  Construcción ELOI, Panadería Romeral, Punto Romeral Supermarket, Confecciones Romeral,
+  Productos Santa Bertina, Jardín Infantil Ñuke Mapu, Frío Frío. En varios casos la búsqueda
+  se contaminó con negocios homónimos en España/Argentina (mismo nombre, otro país), así que
+  no se quiso inventar un número solo para completar la fila.
 
 ### Priorización sugerida (para primer contacto)
 
-**Alta prioridad** (negocio activo y visible, claramente sin web propia, rubro con buen
-potencial de conversión online — venta directa, pedidos, reservas):
-1. Restaurante El Romeral
-2. Ferretería FyD Romeral
-3. Ferretería y Construcción ELOI
-4. Minimarket Las Brisas de Romeral
-5. Productos Santa Bertina
-6. Mermeladas María Altamira
-7. Punto Romeral Supermarket
+**Alta prioridad y con contacto ya confirmado** — empezar por acá:
+1. Ferretería FyD Romeral
+2. Minimarket Las Brisas de Romeral
+3. Restaurant Colo Colo Romeral
+4. Mermeladas María Altamira
+
+**Alta prioridad pero sin teléfono confirmado** (contactar por Facebook/Instagram mientras se
+verifica el teléfono): Restaurante El Romeral, Ferretería y Construcción ELOI, Productos Santa
+Bertina, Punto Romeral Supermarket.
+
+**Baja prioridad**: Agrofrío Central (pertenece al grupo Alsu, que ya tiene sitio web propio —
+el decisor real probablemente ya gestiona su imagen web a nivel de grupo), Jardín Infantil
+Ñuke Mapu (es un jardín JUNJI público, no un negocio privado).
 
 ## Próximos pasos recomendados
 
@@ -71,7 +96,8 @@ potencial de conversión online — venta directa, pedidos, reservas):
      desactualizados.
 2. **Verificar contactos en terreno**: varios teléfonos/direcciones deben confirmarse
    llamando o visitando (esta lista viene de snippets de búsqueda, no de una fuente única
-   verificada).
+   verificada). Para los 8 negocios sin teléfono confirmado, la vía más rápida es escribirles
+   directo por Facebook/Instagram (link en el CSV) y pedir el teléfono o WhatsApp ahí mismo.
 3. **Primer contacto**: usar las plantillas de abajo, personalizando el nombre del negocio.
 
 ## Plantillas de contacto (WhatsApp / Instagram DM)
